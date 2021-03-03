@@ -1,0 +1,80 @@
+
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+//		classpath "org.hibernate:hibernate-gradle-plugin:5.4.2.Final"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:1.3.72"
+    }
+}
+
+
+
+plugins {
+    id("org.springframework.boot") version "2.3.4.RELEASE"
+    id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id "org.jetbrains.kotlin.plugin.spring" version '1.3.72'
+}
+apply plugin: 'java'
+apply plugin: "kotlin-jpa"
+
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+//sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+    annotation("com.example.demo.model")
+}
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.1.4.RELEASE'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.1.4.RELEASE'
+    implementation 'org.springframework.security.oauth:spring-security-oauth-parent:2.3.5.RELEASE'
+    implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.3.RELEASE'
+
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
+
+    compile 'org.hibernate:hibernate-core:5.4.2.Final'
+
+    runtime 'org.hibernate:hibernate-entitymanager:5.4.2.Final'
+    compile 'org.springframework:spring-orm:5.1.6.RELEASE'
+    compile 'com.h2database:h2:1.4.197'
+    compile 'org.apache.tomcat:tomcat-dbcp:9.0.1'
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation'org.apache.logging.log4j:log4j-api:2.6.1'
+    implementation'org.apache.logging.log4j:log4j-core:2.6.1'
+    compile 'com.lmax:disruptor:3.3.6'
+    compile 'org.modelmapper:modelmapper:2.3.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    compile 'org.hibernate:hibernate-envers:5.4.2.Final'
+
+}
+
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
